@@ -26,7 +26,9 @@ export async function registerWebhookRoutes(app: FastifyInstance, db: Db) {
 
     const entries = parsed.data.entries;
     for (const entry of entries) {
-      db.insertQueueItem(entry.id, entry.title, entry.content);
+      if (entry.content.trim().length > 400) {
+        db.insertQueueItem(entry.id, entry.title, entry.content);
+      }
     }
 
     return reply.send({ received: entries.length });
