@@ -61,7 +61,7 @@ export class QueueWorker {
   }
 
   private async handleJob(job: QueueItem): Promise<string> {
-    const prompt = `请对下面的文章内容进行总结，保持简洁明了，字数控制在150字以内。无论文章原文使用何种语言，请用中文完成总结。\n\n${job.content}`;
+    const prompt = `请对下面的文章内容进行总结，保持简洁明了，字数控制在150字以内，不要以Markdown格式输出，所有文字都整合为一段文字。无论文章原文使用何种语言，请用中文完成总结。\n\n${job.content}`;
     const summary = await summarizeWithOllama({
       baseUrl: this.config.ollamaUrl,
       model: this.config.ollamaModel,
